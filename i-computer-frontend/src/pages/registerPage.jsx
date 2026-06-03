@@ -6,3 +6,9 @@ export default function RegisterPage() {
         </div>
     )
 }
+
+
+
+//181800 secondary
+//f4f4f4 primary
+//001a84 accent

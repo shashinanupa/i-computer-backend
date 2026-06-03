@@ -6,6 +6,7 @@ import userRouter from './routers/userRouter.js'
 import authenticate from './middlewares/authenticate.js'
 import productRouter from './routers/productRouter.js'
 import dns from 'dns';
+import cors from 'cors'
 dns.setServers(['1.1.1.1', '8.8.8.8']);
 
 const mongoDBURI = process.env.MONGO_URI
@@ -17,6 +18,8 @@ mongoose.connect(mongoDBURI).then(
 )
 
 const app = express()
+
+app.use(cors())
 
 app.use( express.json() )
 

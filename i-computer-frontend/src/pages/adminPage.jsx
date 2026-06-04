@@ -1,21 +1,90 @@
 import { Link, Routes, Route } from "react-router-dom";
+import { FaClipboardList, FaBoxOpen, FaUsers } from "react-icons/fa";
+import AdminProduct from "./admin/adminProduct";
 
 export default function AdminPage() {
-    return (
-        <div className="w-full h-full flex">
-           <div className="w-[300px] h-full bg-white" >
-           <Link to="/admin/products" className="block p-4 hover:bg-gray-200">Products</Link>
-           <Link to="/admin/users" className="block p-4 hover:bg-gray-200">Users</Link> 
-           <Link to="/admin" className="block p-4 hover:bg-gray-200">Orders</Link>
-           </div>
-           <div className="w-[calc(100%-300px)] h-full bg-amber-200">
-<Routes>
-    <Route path='/' element={<h1>ordres page</h1>} />
-    <Route path='/products' element={<h1>products page</h1>} />
-    <Route path='/users' element={<h1>users page</h1>} />
-</Routes>
-           </div>
-           
+  return (
+    <div className="w-full h-full flex bg-gray-100">
+
+      {/* Sidebar */}
+      <div className="w-[300px] h-full bg-white flex flex-col shadow-xl rounded-r-3xl">
+
+        {/* Logo */}
+        <div className="w-full h-[100px] flex items-center justify-center border-b px-6 py-3">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-full w-full object-cover"
+          />
         </div>
-    )
+
+        {/* Menu */}
+        <div className="flex flex-col p-4 gap-2 mt-3">
+
+          <Link
+            to="/admin"
+            className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-100 hover:text-blue-600 transition-all duration-200"
+          >
+            <FaClipboardList className="text-xl" />
+            <span className="font-semibold">Orders</span>
+          </Link>
+
+          <Link
+            to="/admin/products"
+            className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-100 hover:text-blue-600 transition-all duration-200"
+          >
+            <FaBoxOpen className="text-xl" />
+            <span className="font-semibold">Products</span>
+          </Link>
+
+          <Link
+            to="/admin/users"
+            className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-100 hover:text-blue-600 transition-all duration-200"
+          >
+            <FaUsers className="text-xl" />
+            <span className="font-semibold">Users</span>
+          </Link>
+
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="w-[calc(100%-300px)] h-full bg-gray-100 p-8">
+        <div className="w-full h-full bg-white rounded-3xl shadow-lg p-8">
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <h1 className="text-3xl font-bold mb-2">Orders Page</h1>
+                  <p className="text-gray-500">
+                    Manage all customer orders here.
+                  </p>
+                </>
+              }
+            />
+
+            <Route
+              path="/products"
+              element={
+                <AdminProduct />
+              }
+            />
+
+            <Route
+              path="/users"
+              element={
+                <h1 className="text-3xl font-bold">
+                  Users Page
+                </h1>
+              }
+            />
+          </Routes>
+
+        </div>
+      </div>
+
+    </div>
+  );
 }

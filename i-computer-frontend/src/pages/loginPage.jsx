@@ -3,26 +3,41 @@ import { BiKey } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import{useState} from 'react';
 import toast from "react-hot-toast";
-import axios from "axios";
+import api from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
     
 const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const  navigate = useNavigate();
 
    async function handleLogin() {
-        
-        toast.success("email: " + email + " password: " + password);
+
+    setIsLoading(true);    
+      
 
         try {
-            const res = await axios.post("http://localhost:3000/api/auth/login", {
+            const res = await api.post("/users/login", {
                 email: email,
                 password: password
             });
             console.log(res);
+            toast.success("Login successful: " + res.data.message);
+localStorage.setItem("token", res.data.token);
+
+if(res.data.user.role === "admin") {
+    navigate("/admin");
+}else {
+ navigate("/");
+}
+
+
         } catch (error) {
-            toast.error("Login failed: " + error.message);
+            toast.error("Login failed: " + error.response.data.message);
         }
+        setIsLoading(false);
     }
 
     return (
@@ -82,8 +97,9 @@ const [email, setEmail] = useState("");
         </div>
 
         {/* Login Button */}
-        <button className="w-full py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-semibold transition" onClick={handleLogin}>
-          Login
+        <button disabled={isLoading} className="w-full py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-semibold transition" onClick={handleLogin}>
+         
+          {isLoading? "..loading." : "login"}
         </button>
 
         {/* Sign Up */}

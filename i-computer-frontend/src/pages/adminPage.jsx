@@ -1,10 +1,11 @@
 import { Link, Routes, Route } from "react-router-dom";
 import { FaClipboardList, FaBoxOpen, FaUsers } from "react-icons/fa";
 import AdminProduct from "./admin/adminProduct";
+import AdminAddProductForm from "./admin/AdminAddProductForm";
 
 export default function AdminPage() {
   return (
-    <div className="w-full h-full flex bg-gray-100">
+    <div className="w-full h-screen flex bg-gray-100">
 
       {/* Sidebar */}
       <div className="w-[300px] h-full bg-white flex flex-col shadow-xl rounded-r-3xl">
@@ -48,11 +49,12 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content Area */}
       <div className="w-[calc(100%-300px)] h-full bg-gray-100 p-8">
-        <div className="w-full h-full bg-white rounded-3xl shadow-lg p-8">
+        <div className="w-full h-full bg-white rounded-3xl shadow-lg p-8 overflow-y-auto">
 
           <Routes>
+            {/* Orders Route */}
             <Route
               path="/"
               element={
@@ -65,20 +67,24 @@ export default function AdminPage() {
               }
             />
 
+            {/* Products Route */}
             <Route
               path="/products"
-              element={
-                <AdminProduct />
-              }
+              element={<AdminProduct />}
             />
 
+            {/* Users Route */}
             <Route
               path="/users"
               element={
-                <h1 className="text-3xl font-bold">
-                  Users Page
-                </h1>
+                <h1 className="text-3xl font-bold">Users Page</h1>
               }
+            />
+
+            {/* Add Product Route */}
+            <Route 
+              path="/add-product" 
+              element={<AdminAddProductForm />} 
             />
           </Routes>
 
